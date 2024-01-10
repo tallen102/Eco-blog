@@ -5,6 +5,7 @@ import PageLayout from "./Layouts/PageLayout/PageLayout";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase/firebase";
+// import Contact from "./pages/ContactPage/ContactUs";
 
 function App() {
 	const [authUser] = useAuthState(auth);
@@ -15,6 +16,9 @@ function App() {
 				<Route path='/' element={authUser ? <HomePage /> : <Navigate to='/auth' />} />
 				<Route path='/auth' element={!authUser ? <AuthPage /> : <Navigate to='/' />} />
 				<Route path='/:username' element={<ProfilePage />} />
+
+
+
 			</Routes>
 		</PageLayout>
 	);

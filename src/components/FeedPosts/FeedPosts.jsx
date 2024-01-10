@@ -27,9 +27,8 @@ const FeedPosts = () => {
 			{!isLoading && posts.length === 0 && (
 				<>
 					<Text fontSize={"md"} color={"red.400"}>
-						Dayuum. Looks like you don&apos;t have any friends.
+						Add friends to see posts....
 					</Text>
-					<Text color={"red.400"}>Stop coding and go make some!!</Text>
 				</>
 			)}
 		</Container>

@@ -4,14 +4,15 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-	storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-	messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-	appId: import.meta.env.VITE_FIREBASE_APP_ID,
-	measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-};
+	apiKey: "AIzaSyDFZxA3kJYr2SoHWnhREJyOmPE1lXfbz24",
+	authDomain: "secondhand-453b5.firebaseapp.com",
+	databaseURL: "https://secondhand-453b5-default-rtdb.firebaseio.com",
+	projectId: "secondhand-453b5",
+	storageBucket: "secondhand-453b5.appspot.com",
+	messagingSenderId: "14237004762",
+	appId: "1:14237004762:web:da7460ef9b27c5fc07c6e3",
+	measurementId: "G-B1L5KSFPPY"
+  };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

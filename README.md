@@ -1,7 +1,8 @@
-# Fullstack Instagram Clone Tutorial
+# React + Vite
 
-### Built With React, Firebase && Chakra UI
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# [Tutorial](https://youtu.be/bQtAg7AFFrY)
+Currently, two official plugins are available:
 
-![Screenshot of App](https://i.ibb.co/PjkYLCk/Group-34.png)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

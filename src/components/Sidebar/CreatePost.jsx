@@ -32,7 +32,7 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 const CreatePost = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [caption, setCaption] = useState("");
-	const imageRef = useRef(null);
+	const imageRef = useRef(null); 
 	const { handleImageChange, selectedFile, setSelectedFile } = usePreviewImg();
 	const showToast = useShowToast();
 	const { isLoading, handleCreatePost } = useCreatePost();
