@@ -158,7 +158,38 @@ const ProfilePost = ({ post }) => {
 								<VStack w='full' alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
 									{/* CAPTION */}
 									{post.caption && <Caption post={post} />}
-									{/* COMMENTS */}
+									{/* TITLE */}
+									
+									{/* TITLE */}
+									{post.title && (
+										<Text fontWeight={"bold"} fontSize={18} mb={2}>
+											Title: {post.title}
+										</Text>
+									)}
+									{/* DESCRIPTION */}
+									{post.description && (
+										<Text fontSize={16} mb={2}>
+											Description: {post.description}
+										</Text>
+									)}
+									{/* CATEGORY */}
+									{post.category && (
+										<Text fontSize={14} mb={2}>
+											Category: {post.category}
+										</Text>
+									)}
+									{/* CONDITION */}
+									{post.condition && (
+										<Text fontSize={16} mb={2}>
+											Condition: {post.condition}
+										</Text>
+									)}
+									{/* PRICE */}
+									{post.price && (
+										<Text fontSize={16} mb={2}>
+											Price: {post.price}
+										</Text>
+									)}
 									{post.comments.map((comment) => (
 										<Comment key={comment.id} comment={comment} />
 									))}

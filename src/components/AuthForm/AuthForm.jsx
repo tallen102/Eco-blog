@@ -11,7 +11,7 @@ const AuthForm = () => {
 		<>
 			<Box border={"1px solid gray"} borderRadius={4} padding={5}>
 				<VStack spacing={4}>
-					<Image src='https://s3.amazonaws.com/mobilecause-avatar-production/shared_img/shared_imgs/508383/original/KnightNation_Logo_2020.png?1611942961' h={24} cursor={"pointer"} alt='EcoExchange' />
+				<Image src='public\EcoExchagne.png' w={150} h={24} cursor={"pointer"} alt='EcoExchange' />
 
 					{isLogin ? <Login /> : <Signup />}
 

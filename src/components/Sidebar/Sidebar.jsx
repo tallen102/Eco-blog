@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Link, Tooltip } from "@chakra-ui/react";
+import { Box, Button, Flex, Link, Image, Tooltip, VStack } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { InstagramLogo, InstagramMobileLogo } from "../../assets/constants";
+import { EcoExchangeLogo, EcoMobileLogo } from "../../assets/constants";
 
 import { BiLogOut } from "react-icons/bi";
 import useLogout from "../../hooks/useLogout";
@@ -19,60 +19,64 @@ const Sidebar = () => {
 			left={0}
 			px={{ base: 2, md: 4 }}
 		>
-			<Flex direction={"column"} gap={10} w='full' height={"full"}>
-				<Link to={"/"} as={RouterLink} pl={2} display={{ base: "none", md: "block" }} cursor='pointer'>
-					<InstagramLogo />
-				</Link>
-				<Link
-					to={"/"}
-					as={RouterLink}
-					p={2}
-					display={{ base: "block", md: "none" }}
-					borderRadius={6}
-					_hover={{
-						bg: "whiteAlpha.200",
-					}}
-					w={10}
-					cursor='pointer'
-				>
-					<InstagramMobileLogo />
-				</Link>
-				<Flex direction={"column"} gap={5} cursor={"pointer"}>
-					<SidebarItems />
-				</Flex>
+			<VStack spacing={4}>
 
-				{/* LOGOUT */}
-				<Tooltip
-					hasArrow
-					label={"Logout"}
-					placement='right'
-					ml={1}
-					openDelay={500}
-					display={{ base: "block", md: "none" }}
-				>
-					<Flex
-						onClick={handleLogout}
-						alignItems={"center"}
-						gap={4}
-						_hover={{ bg: "whiteAlpha.400" }}
-						borderRadius={6}
+				<Flex direction={"column"} gap={10} w='full' height={"full"}>
+					<Link to={"/"} as={RouterLink} pl={2} display={{ base: "none", md: "block" }} cursor='pointer'>
+					<Image src='https://s3.amazonaws.com/mobilecause-avatar-production/shared_img/shared_imgs/508383/original/KnightNation_Logo_2020.png?1611942961' h={24} cursor={"pointer"} alt='EcoExchange' />
+
+					</Link>
+					<Link
+						to={"/"}
+						as={RouterLink}
 						p={2}
-						w={{ base: 10, md: "full" }}
-						mt={"auto"}
-						justifyContent={{ base: "center", md: "flex-start" }}
+						display={{ base: "block", md: "none" }}
+						borderRadius={6}
+						_hover={{
+							bg: "whiteAlpha.200",
+						}}
+						w={10}
+						cursor='pointer'
 					>
-						<BiLogOut size={25} />
-						<Button
-							display={{ base: "none", md: "block" }}
-							variant={"ghost"}
-							_hover={{ bg: "transparent" }}
-							isLoading={isLoggingOut}
-						>
-							Logout
-						</Button>
+						<EcoMobileLogo />
+					</Link>
+					<Flex direction={"column"} gap={5} cursor={"pointer"}>
+						<SidebarItems />
 					</Flex>
-				</Tooltip>
-			</Flex>
+
+					{/* LOGOUT */}
+					<Tooltip
+						hasArrow
+						label={"Logout"}
+						placement='right'
+						ml={1}
+						openDelay={500}
+						display={{ base: "block", md: "none" }}
+					>
+						<Flex
+							onClick={handleLogout}
+							alignItems={"center"}
+							gap={4}
+							_hover={{ bg: "whiteAlpha.400" }}
+							borderRadius={6}
+							p={2}
+							w={{ base: 10, md: "full" }}
+							mt={"auto"}
+							justifyContent={{ base: "center", md: "flex-start" }}
+						>
+							<BiLogOut size={25} />
+							<Button
+								display={{ base: "none", md: "block" }}
+								variant={"ghost"}
+								_hover={{ bg: "transparent" }}
+								isLoading={isLoggingOut}
+							>
+								Logout
+							</Button>
+						</Flex>
+					</Tooltip>
+				</Flex>
+			</VStack>
 		</Box>
 	);
 };
