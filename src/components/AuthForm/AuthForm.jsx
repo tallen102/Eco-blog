@@ -6,12 +6,11 @@ import GoogleAuth from "./GoogleAuth";
 
 const AuthForm = () => {
 	const [isLogin, setIsLogin] = useState(true);
-
 	return (
 		<>
 			<Box border={"1px solid gray"} borderRadius={4} padding={5}>
 				<VStack spacing={4}>
-				<Image src='public\EcoExchagne.png' w={150} h={24} cursor={"pointer"} alt='EcoExchange' />
+				<Image src='/EcoExchagne.png' w={150} h={24} cursor={"pointer"} alt='EcoExchange' />
 
 					{isLogin ? <Login /> : <Signup />}
 

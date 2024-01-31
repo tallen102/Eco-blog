@@ -32,14 +32,12 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 const CreatePost = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	//	const [caption, setCaption] = useState("");
-	const [title, setTitle] = useState("");
+	const [caption, setCaption] = useState("");
+	// const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState("");
 	const [selectedCondition, setSelectedCondition] = useState("");
 	const [price, setPrice] = useState("");
-
-
 	const imageRef = useRef(null);
 	const { handleImageChange, selectedFile, setSelectedFile } = usePreviewImg();
 	const showToast = useShowToast();
@@ -47,18 +45,15 @@ const CreatePost = () => {
 
 	const handlePostCreation = async () => {
 		try {
-			await handleCreatePost(selectedFile, title, description, selectedCategory, selectedCondition, price);
+			await handleCreatePost(selectedFile, caption, description, selectedCategory, selectedCondition, price);
 			onClose();
-
-
-
-
-			// setCaption("");
-			setTitle("");
+			setCaption("");
+			// setTitle("");
 			setDescription("");
 			setSelectedCategory("");
 			setSelectedCondition("");
 			setSelectedFile(null);
+			setPrice("");
 		} catch (error) {
 			showToast("Error", error.message, "error");
 		}
@@ -96,24 +91,22 @@ const CreatePost = () => {
 					<ModalHeader>Create Post</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
-
-						<Input
-							type="text"
-							placeholder="Post title..."
-							value={title}
-							onChange={(e) => setTitle(e.target.value)}
-							mt={4}
+						<Textarea
+							placeholder='Post caption...'
+							value={caption}
+							onChange={(e) => setCaption(e.target.value)}
 						/>
 
 
 						<Textarea
-							placeholder='Post a brief description...'
+							placeholder='Post description...'
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 							mt={4}
 						/>
+
 						<Select
-							placeholder="Select a category"
+							placeholder="Select a category..."
 							value={selectedCategory}
 							onChange={(e) => setSelectedCategory(e.target.value)}
 							mt={4}
@@ -130,7 +123,7 @@ const CreatePost = () => {
 						</Select>
 
 						<Select
-							placeholder="Select a condition"
+							placeholder="Select a condition..."
 							value={selectedCondition}
 							onChange={(e) => setSelectedCondition(e.target.value)}
 							mt={4}
@@ -139,15 +132,17 @@ const CreatePost = () => {
 							<option value="Good ">Good</option>
 							<option value="Fair">Fair</option>
 							<option value="Poor">Poor</option>
+							
 						</Select>
 
-						<Input
-							type="number"
-							placeholder="Price"
+						<Textarea
+							placeholder='Post a price...'
 							value={price}
 							onChange={(e) => setPrice(e.target.value)}
 							mt={4}
 						/>
+
+
 
 
 						<Input type='file' hidden ref={imageRef} onChange={handleImageChange} />
@@ -194,18 +189,17 @@ function useCreatePost() {
 	const userProfile = useUserProfileStore((state) => state.userProfile);
 	const { pathname } = useLocation();
 
-	const handleCreatePost = async (selectedFile, title, description, selectedCategory, selectedCondition, price) => {
+	const handleCreatePost = async (selectedFile, caption, description, selectedCategory, selectedCondition, price) => {
 		if (isLoading) return;
 		if (!selectedFile) throw new Error("Please select an image");
 		setIsLoading(true);
 		const newPost = {
-			// caption: caption,
-			title: title,
+			caption: caption,
 			description: description,
 			category: selectedCategory,
 			condition: selectedCondition,
 			price: price,
-
+			imageURL: "",
 			likes: [],
 			comments: [],
 			createdAt: Date.now(),
@@ -218,7 +212,7 @@ function useCreatePost() {
 			const imageRef = ref(storage, `posts/${postDocRef.id}`);
 
 			await updateDoc(userDocRef, { posts: arrayUnion(postDocRef.id) });
-			await uploadString(imageRef, selectedFile, title, description, selectedCategory, selectedCondition, price, "data_url");
+			await uploadString(imageRef, selectedFile, "data_url");
 			const downloadURL = await getDownloadURL(imageRef);
 
 			await updateDoc(postDocRef, { imageURL: downloadURL });

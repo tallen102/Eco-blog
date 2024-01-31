@@ -1,25 +1,48 @@
-import { auth } from "@/firebase";
-import { signOut, User } from "firebase/auth";
-import { PrettyChatWindow } from "react-chat-engine-pretty";
-interface ChatProps {
-  user: User;
-}
+// ContactUs.js
+import React from "react";
+import Card from "../../components/card/Card";
+import styles from "./Contact.module.scss";
+import { FaPhoneAlt, FaEnvelope, FaTwitter } from "react-icons/fa";
+import { GoLocation } from "react-icons/go";
+import ContactForm from "./ContactForm";
 
-export default function Page(props: ChatProps) {
+const ContactUs = () => {
   return (
-    <div style={{ height: "100vh" }}>
-      <button
-        style={{ position: "absolute", top: "0px", left: "0px" }}
-        onClick={() => signOut(auth)}
-      >
-        Sign Out
-      </button>
-      <PrettyChatWindow
-        projectId={process.env.NEXT_PUBLIC_CHAT_ENGINE_PROJECT_ID || ""}
-        username={props.user.email || ""}
-        secret={props.user.uid}
-        style={{ height: "100%" }}
-      />
-    </div>
+    <section>
+      <div className={`container ${styles.contact}`}>
+        <h2>Contact Us</h2>
+        <div className={styles.section}>
+          <ContactForm />
+
+          <div className={styles.details}>
+            <Card cardClass={styles.card2}>
+              <h3>Our Contact Information</h3>
+              <p>Fill the form or contact us via other channels listed below</p>
+              <div className={styles.icons}>
+                <span>
+                  <FaPhoneAlt />
+                  <p>+234 705 141 6545</p>
+                </span>
+                <span>
+                  <FaEnvelope />
+                  <p>Support@eshop.com</p>
+                </span>
+                <span>
+                  <GoLocation />
+                  <p>Abuja, Nigeria</p>
+                </span>
+                <span>
+                  <FaTwitter />
+                  <p>@ZinoTrust</p>
+                </span>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
   );
-}
+};
+
+export default ContactUs;
+

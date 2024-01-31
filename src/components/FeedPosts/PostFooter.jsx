@@ -12,7 +12,7 @@ import CommentsModal from "../Modals/CommentsModal";
 const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 	const { isCommenting, handlePostComment } = usePostComment();
 	const [comment, setComment] = useState("");
-	const [title, setTitle] = useState("");
+	const [caption, setCaption] = useState("");
 	const [description, setDescription] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState("");
 	const [selectedCondition, setSelectedCondition] = useState("");
@@ -53,11 +53,11 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 					<Text fontSize='sm' fontWeight={700}>
 						{creatorProfile?.username}{" "}
 						<Text as='span' fontWeight={400}>
-							{post.title}
-							{post.description}
-							{post.category}
-							{post.condition}
-							{post.price}
+							{post.caption && <Text fontWeight={"bold"}  fontSize={14} mb={2}>Title: {post.caption}</Text>}
+							{post.description && <Text fontWeight={"bold"} fontSize={14} mb={2}>Description: {post.description}</Text>}
+							{post.category && <Text fontWeight={"bold"} fontSize={14} mb={2}>Category: {post.category}</Text>}
+							{post.condition && <Text fontWeight={"bold"} fontSize={14} mb={2}>Condition: {post.condition}</Text>}
+							{post.price && <Text fontWeight={"bold"} fontSize={14} mb={2}>Price: {post.price}</Text>}
 
 						</Text>
 					</Text>
@@ -103,30 +103,5 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 	);
 };
 
-PostFooter.propTypes = {
-	post: PropTypes.object.isRequired,
-	isProfilePage: PropTypes.bool.isRequired,
-	creatorProfile: PropTypes.shape({
-		username: PropTypes.string.isRequired,
-		// Add other properties if necessary
-	}),
-	postDetails: PropTypes.shape({
-		title: PropTypes.string.isRequired,  // Add this line for title validation
-		description: PropTypes.string.isRequired,
-		category: PropTypes.string.isRequired,
-		condition: PropTypes.string.isRequired,
-		price: PropTypes.string.isRequired,
-	}).isRequired,
-};
-
-PostFooter.defaultProps = {
-	postDetails: {
-		title: '',
-		description: '',
-		category: '',
-		condition: '',
-		price: '',
-	},
-};
 
 export default PostFooter;
