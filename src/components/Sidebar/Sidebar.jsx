@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Link, Image, Tooltip, VStack } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { EcoExchangeLogo, EcoMobileLogo } from "../../assets/constants";
+import { EcoMobileLogo } from "../../assets/constants";
 
 import { BiLogOut } from "react-icons/bi";
 import useLogout from "../../hooks/useLogout";
@@ -23,7 +23,8 @@ const Sidebar = () => {
 
 				<Flex direction={"column"} gap={10} w='full' height={"full"}>
 					<Link to={"/"} as={RouterLink} pl={2} display={{ base: "none", md: "block" }} cursor='pointer'>
-					<Image src='https://s3.amazonaws.com/mobilecause-avatar-production/shared_img/shared_imgs/508383/original/KnightNation_Logo_2020.png?1611942961' h={24} cursor={"pointer"} alt='EcoExchange' />
+					<Image src='https://s3.amazonaws.com/mobilecause-avatar-production/shared_img/shared_imgs/508383/original/KnightNation_Logo_2020.png?1611942961'
+					h={24} cursor={"pointer"} alt='EcoExchange' />
 
 					</Link>
 					<Link

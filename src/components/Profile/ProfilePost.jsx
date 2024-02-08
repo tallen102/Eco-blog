@@ -207,7 +207,8 @@ const ProfilePost = ({ post }) => {
 										</Text>
 									)}
 									{postStatus && (
-										<Text fontSize={14} mb={2}>
+										<Text fontSize={14} mb={2} 	
+										backgroundColor={postStatus === 'available' ? 'green' : 'red'}>
 											Status: {postStatus}
 										</Text>
 									)}
@@ -218,13 +219,23 @@ const ProfilePost = ({ post }) => {
 									))}
 
 									{authUser?.uid === userProfile.uid && (
-									<div style={{ marginTop: '10px' }}>
-										<span>Status:</span>
-										<select value={postStatus} onChange={(e) => handleStatusChange(e.target.value)}>
-											<option value="available">Available</option>
-											<option value="sold">Sold</option>
-										</select>
-									</div>
+										<div style={{ marginTop: '10px' }}>
+											<span>Status:</span>
+											<select
+												value={postStatus}
+												onChange={(e) => handleStatusChange(e.target.value)}
+												style={{
+													backgroundColor: postStatus === 'available' ? 'green' : 'red',
+													color: 'white',
+													fontWeight: 'bold',
+													borderRadius: '4px',
+													padding: '5px',
+												}}
+											>
+												<option value="available">Available</option>
+												<option value="sold">Sold</option>
+											</select>
+										</div>
 									)}
 								</VStack>
 

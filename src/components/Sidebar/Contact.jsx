@@ -14,7 +14,7 @@ const Contact = () => {
 		>
 			<Link
 				display={"flex"}
-				to={"src\components\ContactForm\ContactForm.jsx"}
+				to={"ContactForm.jsx"}
 				as={RouterLink}
 				alignItems={"center"}
 				gap={4}
