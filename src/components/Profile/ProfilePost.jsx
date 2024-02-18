@@ -76,8 +76,6 @@ const ProfilePost = ({ post }) => {
 		}
 	};
 
-
-
 	console.log(post);
 	return (
 		<>

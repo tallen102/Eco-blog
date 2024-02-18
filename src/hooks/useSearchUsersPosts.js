@@ -1,38 +1,39 @@
-
 import { useState } from "react";
 import useShowToast from "./useShowToast";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../firebase/firebase";
-// Import necessary Firebase/Firestore functions
 
 const useSearchUsersPosts = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [post, setPost] = useState(null);
-    const showToast = useShowToast();
+	const [isLoading, setIsLoading] = useState(false);
+	const [posts, setPosts] = useState([]);
+	const showToast = useShowToast();
 
-    const getPostDetails = async (title, category, condition) => {
-        setIsLoading(true);
-        setPost(null);
-        try {
-            let q = collection(firestore, "posts");
+	const getPostDetails = async (category) => {
+		setIsLoading(true);
+		setPosts([]);
+		try {
+			const q = query(collection(firestore, "posts"), where("category", "==", category));
+			const querySnapshot = await getDocs(q);
 
-            if (category && condition) {
-                q = query(q, where("category", "==", category), where("condition", "==", condition));
-            } else if (category) {
-                q = query(q, where("category", "==", category));
-            } else if (condition) {
-                q = query(q, where("condition", "==", condition));
-            }
+			const postsData = [];
+			querySnapshot.forEach((doc) => {
+				postsData.push({ ...doc.data(), id: doc.id });
+			});
 
-        } catch (error) {
-            showToast("Error", error.message, "error");
-            setPost(null);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+			setPosts(postsData);
+			if (postsData.length === 0) {
+				showToast("Error", "Posts not found", "error");
+			}
+		} catch (error) {
+			showToast("Error", error.message, "error");
+			setPosts([]);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
-    return { isLoading, getPostDetails, post, setPost };
+	return { isLoading, getPostDetails, posts, setPosts };
 };
-console.log(useSearchUsersPosts);
+
+
 export default useSearchUsersPosts;
