@@ -89,7 +89,6 @@ const Contact = () => {
 					<ModalHeader>Contact Us</ModalHeader>
 					<ModalBody pb={6}>
 						<form ref={form} onSubmit={sendEmail}>
-							<label>Name</label>
 							<Textarea
 								type="text"
 								name="user_name"
@@ -98,8 +97,9 @@ const Contact = () => {
 								onChange={(e) => setName(e.target.value)}
 								required
 							/>
-							<label>Email</label>
+
 							<Textarea
+								mt={4}
 								type="email"
 								name="user_email"
 								placeholder="Your active email"
@@ -107,8 +107,8 @@ const Contact = () => {
 								onChange={(e) => setEmail(e.target.value)}
 								required
 							/>
-							<label>Subject</label>
 							<Textarea
+								mt={4}
 								type="text"
 								name="subject"
 								placeholder="Subject"
@@ -116,9 +116,10 @@ const Contact = () => {
 								onChange={(e) => setSubject(e.target.value)}
 								required
 							/>
-							<label>Message</label>
 							<Textarea
+								mt={4}
 								name="message"
+								placeholder="Message"
 								cols="30"
 								rows="10"
 								value={message}

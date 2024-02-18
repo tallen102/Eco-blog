@@ -79,7 +79,7 @@ const CreatePost = () => {
 					justifyContent={{ base: "center", md: "flex-start" }}
 					onClick={onOpen}
 				>
-					<CreatePostLogo />
+						<CreatePostLogo />
 					<Box display={{ base: "none", md: "block" }}>Create</Box>
 				</Flex>
 			</Tooltip>

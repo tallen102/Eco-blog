@@ -13,12 +13,11 @@ import {
 	ModalOverlay,
 	Tooltip,
 	useDisclosure,
+	Link
 } from "@chakra-ui/react";
 import { SearchLogo } from "../../assets/constants";
-// import useSearchUser from "../../hooks/useSearchUser";
 import useSearchUsersPosts from "../../hooks/useSearchUsersPosts";
 import { useRef } from "react";
-// import SuggestedUser from "../SuggestedUsers/SuggestedUser";
 import SuggestedPost from "../SuggestedPosts/SuggestedPost";
 
 const Search = () => {
