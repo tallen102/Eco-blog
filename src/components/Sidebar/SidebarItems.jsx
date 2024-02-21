@@ -4,7 +4,6 @@ import Notifications from "./Notifications";
 import ProfileLink from "./ProfileLink";
 import Search from "./Search";
 import Contact from "./Contact";
-import Message from "./Message";
 
 const SidebarItems = () => {
 	return (
@@ -15,7 +14,6 @@ const SidebarItems = () => {
 			<CreatePost />
 			<ProfileLink />
 			<Contact />
-			<Message />
 		</>
 	);
 };
