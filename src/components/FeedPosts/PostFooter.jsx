@@ -4,7 +4,7 @@ import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../assets/constan
 import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/authStore";
 import PropTypes from 'prop-types';
-import {useNavigate } from 'react-router-dom';
+
 import useLikePost from "../../hooks/useLikePost";
 import { timeAgo } from "../../utils/timeAgo";
 import CommentsModal from "../Modals/CommentsModal";
@@ -21,15 +21,11 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 	const commentRef = useRef(null);
 	const { handleLikePost, isLiked, likes } = useLikePost(post);
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const navigate = useNavigate();
 
 	const handleSubmitComment = async () => {
 		await handlePostComment(post.id, comment);
 		setComment("");
 	};
-	const handleButtonClick = () => {
-        navigate("/Chat");
-    };
 
 	return (
 		<Box mb={10} marginTop={"auto"}>
@@ -40,9 +36,6 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 
 				<Box cursor={"pointer"} fontSize={18} onClick={() => commentRef.current.focus()}>
 					<CommentLogo />
-				</Box>
-				<Box>
-				<Button fontSize={18} colorScheme="blue" onClick={handleButtonClick}>Message Seller</Button>
 				</Box>
 			</Flex>
 			<Text fontWeight={600} fontSize={"sm"}>
