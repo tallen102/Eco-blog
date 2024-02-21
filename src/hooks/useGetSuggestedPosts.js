@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import useShowToast from "./useShowToast";
 import useAuthStore from "../store/authStore";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
 import { firestore } from "../firebase/firebase";
 
 const useGetSuggestedPosts = () => {
@@ -16,7 +16,13 @@ const useGetSuggestedPosts = () => {
             setIsLoading(true);
             try {
                 // Define your query based on the search criteria
-                const q = query(collection(firestore, "posts"), where("status", "==", "available"));
+                const usersRef = query(collection(firestore, "posts"));
+                const q = query(
+					usersRef,
+					where("uid", "not-in", [authUser.uid, ...authUser.following]),
+					orderBy("uid"),
+					limit(3)
+				);
 
                 const querySnapshot = await getDocs(q);
                 const posts = [];
@@ -34,7 +40,7 @@ const useGetSuggestedPosts = () => {
         };
 
         getSuggestedPosts();
-    }, [showToast]);
+    }, [authUser, showToast]);
 
     return { isLoading, suggestedPosts };
 };

@@ -15,6 +15,7 @@ import {
 	ModalOverlay,
 	Stack,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { useRef, useState } from "react";
 import useAuthStore from "../../store/authStore";
 import usePreviewImg from "../../hooks/usePreviewImg";
@@ -71,6 +72,8 @@ const EditProfile = ({ isOpen, onClose }) => {
 												Edit Profile Picture
 											</Button>
 										</Center>
+
+
 										<Input type='file' hidden ref={fileRef} onChange={handleImageChange} />
 									</Stack>
 								</FormControl>
@@ -119,6 +122,7 @@ const EditProfile = ({ isOpen, onClose }) => {
 									>
 										Cancel
 									</Button>
+
 									<Button
 										bg={"blue.400"}
 										color={"white"}
@@ -128,7 +132,19 @@ const EditProfile = ({ isOpen, onClose }) => {
 										onClick={handleEditProfile}
 										isLoading={isUpdating}
 									>
-										Submit
+										Save
+									</Button>
+
+									<Button
+										as={Link}
+										to="/Reset"
+										bg={"purple.400"}
+										color={"white"}
+										w='full'
+										size='sm'
+										_hover={{ bg: "purple.500" }}
+									>
+										Reset Password
 									</Button>
 								</Stack>
 							</Stack>

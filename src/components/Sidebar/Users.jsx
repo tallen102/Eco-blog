@@ -4,42 +4,36 @@ import {
 	Flex,
 	FormControl,
 	FormLabel,
-	// Input,
+	Input,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
 	ModalContent,
 	ModalHeader,
 	ModalOverlay,
-	Select,
-	Textarea,
 	Tooltip,
 	useDisclosure,
-	Link
 } from "@chakra-ui/react";
-import { SearchLogo } from "../../assets/constants";
-import useSearchUsersPosts from "../../hooks/useSearchUsersPosts";
-import { useRef, useState } from "react";
-import SuggestedPost from "../SuggestedPosts/SuggestedPost";
+import { UsersLogo } from "../../assets/constants";
+import useSearchUser from "../../hooks/useSearchUser";
+import { useRef } from "react";
+import SuggestedUser from "../SuggestedUsers/SuggestedUser";
 
-const Search = () => {
+const Users = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	// const searchRef = useRef(null);
-	const { posts, isLoading, getPostDetails } = useSearchUsersPosts();
-	const [selectedCategory, setSelectedCategory] = useState('');
-	const [selectedCondition, setSelectedCondition] = useState('');
+	const searchRef = useRef(null);
+	const { user, isLoading, getUserProfile, setUser } = useSearchUser();
 
-	const handleSearchPost = (e) => {
+	const handleSearchUser = (e) => {
 		e.preventDefault();
-		getPostDetails(selectedCategory, selectedCondition);
+		getUserProfile(searchRef.current.value);
 	};
 
-	console.log(posts);
 	return (
 		<>
 			<Tooltip
 				hasArrow
-				label={"Search"}
+				label={"Users"}
 				placement='right'
 				ml={1}
 				openDelay={500}
@@ -55,42 +49,22 @@ const Search = () => {
 					justifyContent={{ base: "center", md: "flex-start" }}
 					onClick={onOpen}
 				>
-					<SearchLogo />
-					<Box display={{ base: "none", md: "block" }}>Search</Box>
+					<UsersLogo />
+					<Box display={{ base: "none", md: "block" }}>Users</Box>
 				</Flex>
 			</Tooltip>
 
 			<Modal isOpen={isOpen} onClose={onClose} motionPreset='slideInLeft'>
 				<ModalOverlay />
 				<ModalContent bg={"black"} border={"1px solid gray"} maxW={"400px"}>
-					<ModalHeader>Search for posts</ModalHeader>
+					<ModalHeader>Search user</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
-						<form onSubmit={handleSearchPost}>
+						<form onSubmit={handleSearchUser}>
 							<FormControl>
-								<FormLabel>Category</FormLabel>
-								<Select placeholder="Select category" onChange={(e) => setSelectedCategory(e.target.value)} >
-									<option value="Apparel">Apparel</option>
-									<option value="Appliances">Appliances</option>
-									<option value="Electronics">Electronics</option>
-									<option value="Furniture">Furniture</option>
-									<option value="Home Goods">Home Goods</option>
-									<option value="Jewelry">Jewelry</option>
-									<option value="Sporting Goods">Sporting Goods</option>
-									<option value="Textbooks">Textbooks</option>
-								</Select>
+								<FormLabel>Username</FormLabel>
+								<Input placeholder='asaprogrammer' ref={searchRef} />
 							</FormControl>
-
-							<FormControl>
-								<FormLabel  mt={4}>Condition</FormLabel>
-								<Select placeholder="Select category" onChange={(e) => setSelectedCondition(e.target.value)} >
-									<option value="New">New</option>
-									<option value="Good ">Good</option>
-									<option value="Fair">Fair</option>
-									<option value="Poor">Poor</option>
-								</Select>
-							</FormControl>
-
 
 							<Flex w={"full"} justifyContent={"flex-end"}>
 								<Button type='submit' ml={"auto"} size={"sm"} my={4} isLoading={isLoading}>
@@ -98,19 +72,17 @@ const Search = () => {
 								</Button>
 							</Flex>
 						</form>
-						{posts && posts.map((post) => (
-							<SuggestedPost key={post.id} post={post} />
-						))}
-
+						{user && <SuggestedUser user={user} setUser={setUser} />}
 					</ModalBody>
 				</ModalContent>
 			</Modal>
 		</>
 	);
 };
-console.log(Search);
 
-export default Search;
+console.log(Users);
+
+export default Users;
 
 // COPY AND PASTE AS THE STARTER CODE FOR THE SEARCH COMPONENT
 // import { Box, Flex, Tooltip } from "@chakra-ui/react";

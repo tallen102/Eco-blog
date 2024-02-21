@@ -1,3 +1,6 @@
+import { IoMdPersonAdd } from "react-icons/io";
+
+
 export const EcoExchangeLogo = () => (
 	<svg
 		aria-label='EcoExchange'
@@ -29,12 +32,12 @@ export const EcoMobileLogo = () => (
 
 	>
 		<title>EcoExchange</title>
-		<text x='50%' y='50%' textAnchor='middle' 
-		dominantBaseline='middle' fontWeight='bold'>
-            GU
-        </text>
-		
-		
+		<text x='50%' y='50%' textAnchor='middle'
+			dominantBaseline='middle' fontWeight='bold'>
+			GU
+		</text>
+
+
 	</svg>
 );
 
@@ -241,4 +244,11 @@ export const CommentLogo = () => (
 			strokeWidth='2'
 		></path>
 	</svg>
+);
+
+export const UsersLogo = () => (
+	<IoMdPersonAdd
+		color='rgb(245, 245, 245)'
+		size='24px'
+	/>
 );

@@ -8,11 +8,17 @@ const useSearchUsersPosts = () => {
 	const [posts, setPosts] = useState([]);
 	const showToast = useShowToast();
 
-	const getPostDetails = async (category) => {
+	const getPostDetails = async (category, condition) => {
 		setIsLoading(true);
 		setPosts([]);
 		try {
-			const q = query(collection(firestore, "posts"), where("category", "==", category));
+			let q = query(collection(firestore, 'posts'), where('category', '==', category));
+
+			// Add conditions for condition and price if provided
+			if (condition) {
+				q = query(q, where('condition', '==', condition));
+			}
+			
 			const querySnapshot = await getDocs(q);
 
 			const postsData = [];
