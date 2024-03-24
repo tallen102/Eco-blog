@@ -1,18 +1,16 @@
-import { Box, Flex, VStack, Input, Button, Text, Avatar, SkeletonCircle, Skeleton, Link } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { Box, Flex, VStack, Input, Button, Text, Avatar, Link, SkeletonCircle } from '@chakra-ui/react';
+import useGetUserProfileById from "../../hooks/useGetUserProfileById";
+import { timeAgo } from "../../utils/timeAgo";
 
 const ChatPage = () => {
+  const { userProfile, isLoading: profileLoading } = useGetUserProfileById();
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
   const handleMessageSend = () => {
     if (inputValue.trim() !== '') {
-      const now = new Date();
-      const hours = (now.getHours() % 12 || 12).toString().padStart(2, '0'); // Convert to 12-hour format
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
-      const timestamp = `${hours}:${minutes} ${ampm}`;
-      
+      const timestamp = timeAgo(new Date()); // Get the time ago string
       const newMessage = {
         content: inputValue,
         timestamp: timestamp
@@ -21,6 +19,7 @@ const ChatPage = () => {
       setInputValue('');
     }
   };
+  
   
 
   return (
@@ -39,16 +38,14 @@ const ChatPage = () => {
       >
         <Flex direction={"column"} align="stretch">
           <VStack spacing={4} align="stretch">
-            {/* Sample message */}
-            <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"} my={2}>
-              <Flex alignItems={"center"} gap={2}>
-                {/* Replace with actual sender profile picture and username */}
-                <Avatar src={'path_to_sender_profile_pic'} alt='user profile pic' size={"sm"} />
-                <Link to={'path_to_sender_profile'}>Username</Link>
-              </Flex>
-              <Box color={"gray.500"}>today</Box>
-            </Flex>
-
+            {/* User Profile */}
+{!profileLoading && userProfile ? (
+  <Link to={`/${userProfile.username}`}>
+    <Avatar src={userProfile.profilePicURL} size={"sm"} />
+  </Link>
+) : (
+  <SkeletonCircle size="8" />
+)}
 
           </VStack>
         </Flex>
@@ -100,3 +97,4 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
+
