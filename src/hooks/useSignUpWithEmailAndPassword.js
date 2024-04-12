@@ -3,6 +3,10 @@ import { auth, firestore } from "../firebase/firebase";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import useShowToast from "./useShowToast";
 import useAuthStore from "../store/authStore";
+import {
+	getAuth,
+	sendEmailVerification
+  } from "firebase/auth";
 
 const useSignUpWithEmailAndPassword = () => {
 	const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
@@ -26,11 +30,14 @@ const useSignUpWithEmailAndPassword = () => {
 		}
 
 		try {
+			const auth = getAuth();
 			const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password);
+
 			if (!newUser && error) {
 				showToast("Error", error.message, "error");
 				return;
 			}
+			
 			if (newUser) {
 				const userDoc = {
 					uid: newUser.user.uid,
@@ -44,6 +51,9 @@ const useSignUpWithEmailAndPassword = () => {
 					posts: [],
 					createdAt: Date.now(),
 				};
+
+				await sendEmailVerification(auth.currentUser);
+
 				await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);
 				localStorage.setItem("user-info", JSON.stringify(userDoc));
 				loginUser(userDoc);
@@ -55,5 +65,6 @@ const useSignUpWithEmailAndPassword = () => {
 
 	return { loading, error, signup };
 };
+
 
 export default useSignUpWithEmailAndPassword;
