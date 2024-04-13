@@ -1,15 +1,13 @@
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useCreateUserWithEmailAndPassword, useSignOut } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../firebase/firebase";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import useShowToast from "./useShowToast";
 import useAuthStore from "../store/authStore";
-import {
-	getAuth,
-	sendEmailVerification
-  } from "firebase/auth";
+import { sendEmailVerification } from "firebase/auth";
 
 const useSignUpWithEmailAndPassword = () => {
 	const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
+	const [signOut] = useSignOut(auth);
 	const showToast = useShowToast();
 	const loginUser = useAuthStore((state) => state.login);
 
@@ -30,14 +28,13 @@ const useSignUpWithEmailAndPassword = () => {
 		}
 
 		try {
-			const auth = getAuth();
 			const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password);
 
 			if (!newUser && error) {
 				showToast("Error", error.message, "error");
 				return;
 			}
-			
+
 			if (newUser) {
 				const userDoc = {
 					uid: newUser.user.uid,
@@ -52,11 +49,19 @@ const useSignUpWithEmailAndPassword = () => {
 					createdAt: Date.now(),
 				};
 
-				await sendEmailVerification(auth.currentUser);
-
 				await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);
 				localStorage.setItem("user-info", JSON.stringify(userDoc));
-				loginUser(userDoc);
+
+				await sendEmailVerification(newUser.user);
+
+				if (!newUser.user.emailVerified) {
+					await signOut();
+					return showToast(
+						"Created",
+						"Account has been created! Please verify your email with the link sent and reload the page to continue",
+						"success"
+					);
+				}
 			}
 		} catch (error) {
 			showToast("Error", error.message, "error");
