@@ -2,14 +2,12 @@ import { useCreateUserWithEmailAndPassword, useSignOut } from "react-firebase-ho
 import { auth, firestore } from "../firebase/firebase";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import useShowToast from "./useShowToast";
-import useAuthStore from "../store/authStore";
 import { sendEmailVerification } from "firebase/auth";
 
 const useSignUpWithEmailAndPassword = () => {
 	const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
 	const [signOut] = useSignOut(auth);
 	const showToast = useShowToast();
-	const loginUser = useAuthStore((state) => state.login);
 
 	const signup = async (inputs) => {
 		if (!inputs.email || !inputs.password || !inputs.username || !inputs.fullName) {
